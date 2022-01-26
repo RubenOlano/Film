@@ -1,13 +1,19 @@
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-const mongoose_1 = require("mongoose");
-const schema = new mongoose_1.Schema({
-    title: { type: String, required: true },
-    actors: { type: [String], required: true },
-    poster: { type: String, required: true },
-});
-const MovieModel = (0, mongoose_1.model)("Movie", schema);
-const run = async () => {
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
 };
-run();
+Object.defineProperty(exports, "__esModule", { value: true });
+require("dotenv/config");
+const mongoose_1 = require("mongoose");
+const express_1 = __importDefault(require("express"));
+const movies_1 = __importDefault(require("./Routes/movies"));
+const app = (0, express_1.default)();
+const URL = process.env.CONNECTION_URL || "";
+const PORT = process.env.PORT || 4000;
+app.use('/movies', movies_1.default);
+(0, mongoose_1.connect)(URL, (err) => {
+    if (err)
+        console.log(err);
+    app.listen(PORT, () => console.log(`Server is running on port ${PORT}`));
+});
 //# sourceMappingURL=index.js.map

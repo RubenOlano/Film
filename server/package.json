@@ -12,10 +12,13 @@
   "license": "ISC",
   "devDependencies": {
     "@types/node": "^17.0.12",
+    "nodemon": "^2.0.15",
     "typescript": "^4.5.5"
   },
   "dependencies": {
     "@types/express": "^4.17.13",
+    "@types/mongoose": "^5.11.97",
+    "dotenv": "^14.3.2",
     "express": "^4.17.2",
     "mongodb": "^4.3.1",
     "mongoose": "^6.1.8"
