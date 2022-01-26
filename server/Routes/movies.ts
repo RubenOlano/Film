@@ -1,7 +1,8 @@
 import express from 'express'
+import { fetchMovie } from '../controllers/movies'
 
 const router = express.Router()
 
-router.get('/', (_req, res) => { res.send("hello world") })
+router.get('/', fetchMovie)
 
 export default router

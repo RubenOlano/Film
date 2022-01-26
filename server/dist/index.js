@@ -6,7 +6,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 require("dotenv/config");
 const mongoose_1 = require("mongoose");
 const express_1 = __importDefault(require("express"));
-const movies_1 = __importDefault(require("./Routes/movies"));
+const movies_1 = __importDefault(require("./routes/movies"));
 const app = (0, express_1.default)();
 const URL = process.env.CONNECTION_URL || "";
 const PORT = process.env.PORT || 4000;

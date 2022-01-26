@@ -1,7 +1,7 @@
 import 'dotenv/config'
 import { connect } from "mongoose";
 import express from "express"
-import router from './Routes/movies'
+import router from './routes/movies'
 
 const app = express()
 const URL: string = process.env.CONNECTION_URL || ""
