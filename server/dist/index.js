@@ -6,4 +6,8 @@ const schema = new mongoose_1.Schema({
     actors: { type: [String], required: true },
     poster: { type: String, required: true },
 });
+const MovieModel = (0, mongoose_1.model)("Movie", schema);
+const run = async () => {
+};
+run();
 //# sourceMappingURL=index.js.map

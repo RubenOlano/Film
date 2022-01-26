@@ -1,4 +1,5 @@
-import { connect, Schema } from "mongoose";
+import { connect, Schema, model } from "mongoose";
+import express from "express"
 
 
 interface Movie {
@@ -12,3 +13,10 @@ const schema = new Schema<Movie>({
     actors: { type: [String], required: true },
     poster: { type: String, required: true },
 })
+
+const MovieModel = model<Movie>("Movie", schema)
+
+const run = async () => {
+
+}
+run()
