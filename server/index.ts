@@ -5,7 +5,7 @@ import router from './routes/movies'
 
 const app: express.Application = express()
 const URL: string = process.env.CONNECTION_URL || ""
-const PORT: any = process.env.PORT || 4000
+const PORT: any = process.env.PORT || 5000
 
 app.use('/movies', router)
 

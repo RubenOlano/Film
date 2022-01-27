@@ -9,7 +9,7 @@ const express_1 = __importDefault(require("express"));
 const movies_1 = __importDefault(require("./routes/movies"));
 const app = (0, express_1.default)();
 const URL = process.env.CONNECTION_URL || "";
-const PORT = process.env.PORT || 4000;
+const PORT = process.env.PORT || 5000;
 app.use('/movies', movies_1.default);
 (0, mongoose_1.connect)(URL, (err) => {
     if (err)
