@@ -6,7 +6,6 @@ import NewGame from '../NewGame/NewGame';
 
 const Game = () => {
     const movie = useAppSelector(selectMovie)
-
     return (
         <>
             {!movie?.poster ? <NewGame /> :

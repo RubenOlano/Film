@@ -1,16 +1,17 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { RootState } from "../../app/store";
-import { Movie } from "../../types/types";
+import { Actor, Movie } from "../../types/types";
 import { fetchMovie } from "./movieAPI";
 import { AxiosResponse } from "axios";
-import { Actor } from "../../types/types";
 
-const empty: Array<Actor> = []
 
 const initialState: Movie = {
     title: "",
-    actors: empty,
-    poster: ""
+    actors: [],
+    poster: "",
+    guesses: 0,
+    currActors: [],
+    year: 0
 }
 
 export const setMovie = createAsyncThunk(
@@ -27,6 +28,17 @@ export const movieSlice = createSlice({
     reducers: {
         set: (state, action: PayloadAction<Movie>) => {
             state = action.payload
+        },
+        pop: (state) => {
+            state.guesses++
+            if (state.guesses === 6)
+                return
+            const actor = state.actors.pop() as Actor
+            state.currActors.push(actor)
+        },
+        reset: (state) => {
+            state.guesses = 0
+            state.currActors = []
         }
     },
     extraReducers: (builder) => {
@@ -36,10 +48,12 @@ export const movieSlice = createSlice({
             state.actors = action.payload.actors
             state.poster = action.payload.poster
             state.title = action.payload.title
+            state.year = action.payload.year
         })
     }
 })
 
+export const { pop, reset } = movieSlice.actions
 
 export const selectMovie = (state: RootState) => state.movie
 

@@ -7,5 +7,8 @@ export interface Actor {
 export interface Movie {
     title: string
     actors: Actor[]
-    poster: string
+    poster: string,
+    guesses: number,
+    currActors: Actor[],
+    year: number
 }

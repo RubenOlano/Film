@@ -1,27 +1,30 @@
-import { Input, Box, Center, Grid, GridItem, Stack } from '@chakra-ui/react';
-import React, { FC, useState, useEffect } from 'react';
+import { Input, Box, Grid, GridItem, Stack, Text } from '@chakra-ui/react';
+import React, { FC, useState } from 'react';
+import { useAppDispatch, useAppSelector } from 'src/app/hooks';
 import fuzzysort from 'fuzzysort';
-import { Movie, Actor } from 'src/types/types';
+import { Movie } from 'src/types/types';
 import { v4 as uuid } from 'uuid';
-import NewGame from '../NewGame/NewGame';
 import Win from '../Win/Win';
 import Actors from '../Actors/Actors';
+import { pop, selectMovie } from 'src/features/movies/movieSlice';
 
 interface MovieProps {
     movie: Movie
 }
 
-let empty: Array<Actor> = []
 
 
 const Guess: FC<MovieProps> = ({ movie }): JSX.Element => {
     const [guess, setGuess] = useState<string>("");
-    const [winState, setWinstate] = useState<boolean>(false);
-    const [actorArr, setActorArr] = useState<Array<Actor>>(movie.actors)
+    const [winState, setWinState] = useState<boolean>(false);
+    const actorArr = useAppSelector(selectMovie).currActors
+    const dispatch = useAppDispatch()
 
-    useEffect(() => setActorArr(movie.actors), [movie]);
-
-
+    const handleIncorrect = () => {
+        if (movie?.guesses && movie.guesses > 6)
+            return;
+        dispatch(pop())
+    }
 
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setGuess(event.target.value)
@@ -32,30 +35,28 @@ const Guess: FC<MovieProps> = ({ movie }): JSX.Element => {
         if (!guess)
             return
         if (fuzzysort.go(guess, [movie.title])[0]?.score > -guess.length + 3)
-            setWinstate(true)
+            setWinState(true)
         else {
-            setActorArr(empty)
+            handleIncorrect()
         }
         setGuess("")
     }
 
     return (
         <>
-            <Center p={6}>
-                <Stack>
-                    <Box alignContent='center' width='100%' p={6}>
-                        <form onSubmit={handleSubmit} >
-                            {!winState ? <Input autoFocus onChange={handleChange} placeholder='Guess' value={guess} /> : <Win />}
-                        </form>
-                    </Box>
-                    <Box width='100%'>
-                        <Grid gap={3} templateColumns='repeat(3, 1fr)'>
-                            {actorArr.map(item => <GridItem key={uuid()}><Actors actor={item} /></GridItem>)}
-                        </Grid>
-                    </Box>
-                </Stack>
-            </Center>
-            <NewGame setWinState={setWinstate} />
+            <Stack>
+                <Box width='100vw' p={6}>
+                    <form onSubmit={handleSubmit} >
+                        {!winState ? <Input autoFocus onChange={handleChange} placeholder='Guess' value={guess} /> : <Win poster={movie.poster} setWinState={setWinState} />}
+                    </form>
+                    <Text paddingTop={3} size='3xl'>{movie.year}</Text>
+                </Box>
+                <Box p={3} width='100%'>
+                    <Grid gap={3} templateColumns='repeat(3, 1fr)'>
+                        {actorArr.map(item => <GridItem key={uuid()}><Actors actor={item} /></GridItem>)}
+                    </Grid>
+                </Box>
+            </Stack>
         </>
     )
 };

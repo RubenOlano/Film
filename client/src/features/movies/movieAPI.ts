@@ -5,8 +5,11 @@ const API: Axios = axios.create({ baseURL: 'http://localhost:5000' })
 
 const defaultstate: Movie = {
     title: "",
-    actors: [{ name: "", image: "" }],
-    poster: ""
+    actors: [],
+    poster: "",
+    currActors: [],
+    year: 0,
+    guesses: 0
 }
 
 
