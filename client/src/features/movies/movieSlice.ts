@@ -3,10 +3,13 @@ import { RootState } from "../../app/store";
 import { Movie } from "../../types/types";
 import { fetchMovie } from "./movieAPI";
 import { AxiosResponse } from "axios";
+import { Actor } from "../../types/types";
+
+const empty: Array<Actor> = []
 
 const initialState: Movie = {
     title: "",
-    actors: [],
+    actors: empty,
     poster: ""
 }
 
