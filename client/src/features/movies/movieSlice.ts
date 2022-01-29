@@ -4,7 +4,6 @@ import { Actor, Movie } from "../../types/types";
 import { fetchMovie } from "./movieAPI";
 import { AxiosResponse } from "axios";
 
-
 const initialState: Movie = {
     title: "",
     actors: [],
@@ -13,6 +12,8 @@ const initialState: Movie = {
     currActors: [],
     year: 0
 }
+
+
 
 export const setMovie = createAsyncThunk(
     'movie/setMovie',
