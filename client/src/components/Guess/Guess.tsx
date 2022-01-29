@@ -34,7 +34,7 @@ const Guess: FC<MovieProps> = ({ movie }): JSX.Element => {
         event.preventDefault();
         if (!guess)
             return
-        if (fuzzysort.go(guess, [movie.title])[0]?.score > -guess.length + 3)
+        if (fuzzysort.go(guess, [movie.title])[0]?.score >= -guess.length + 3)
             setWinState(true)
         else {
             handleIncorrect()

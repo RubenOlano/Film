@@ -31,7 +31,7 @@ export const movieSlice = createSlice({
         },
         pop: (state) => {
             state.guesses++
-            if (state.guesses === 6)
+            if (state.guesses > 7)
                 return
             const actor = state.actors.pop() as Actor
             state.currActors.push(actor)

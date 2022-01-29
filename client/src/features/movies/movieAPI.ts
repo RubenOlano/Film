@@ -1,7 +1,7 @@
 import axios, { Axios } from "axios";
 import type { Movie } from "../../types/types";
 
-const API: Axios = axios.create({ baseURL: 'http://localhost:5000' })
+const API: Axios = axios.create({ baseURL: 'https://film-guess.herokuapp.com/' })
 
 const defaultstate: Movie = {
     title: "",
