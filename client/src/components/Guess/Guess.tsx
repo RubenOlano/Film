@@ -54,7 +54,7 @@ const Guess: FC<MovieProps> = ({ movie }): JSX.Element => {
                     <Text paddingTop={3} size='3xl'>{movie.year}</Text>
                 </Box>
                 <Center>
-                    <Box saturate={2} shadow='2xl' p={3} width='100%' height='50vh'>
+                    <Box shadow='2xl' p={3} width='100%' height='50vh'>
                         <Grid gap={1} templateColumns={['repeat(2, auto)', 'repeat(3, auto)']}>
                             {actorArr.map(item => <GridItem key={uuid()}><Actors actor={item} /></GridItem>)}
                         </Grid>
