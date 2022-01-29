@@ -3,7 +3,7 @@ import React from 'react';
 
 const Navbar = () => {
     return (
-        <Box borderRadius='sm' bg='goldenrod' width='100vw' p={6}>
+        <Box borderRadius='none' bg='goldenrod' width='100%'>
             <Text fontSize='6xl'>
                 Filmio
             </Text>
