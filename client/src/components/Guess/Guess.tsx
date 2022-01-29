@@ -1,4 +1,4 @@
-import { Input, Box, Grid, GridItem, Stack, Text, Center } from '@chakra-ui/react';
+import { Input, Box, Grid, GridItem, Stack, Text } from '@chakra-ui/react';
 import React, { FC, useState } from 'react';
 import { useAppDispatch, useAppSelector } from 'src/app/hooks';
 import fuzzysort from 'fuzzysort';
@@ -46,21 +46,19 @@ const Guess: FC<MovieProps> = ({ movie }): JSX.Element => {
 
     return (
         <>
-            <Stack direction={['column', 'row']}>
-                <Box width={['100vw', '50vw']} p={6}>
+            <Stack>
+                <Box width='100vw' p={6}>
                     <form onSubmit={handleSubmit} >
                         {!winState ? <Input autoFocus onChange={handleChange} placeholder='Guess' value={guess} /> : <Win poster={movie.poster} setWinState={setWinState} />}
                     </form>
                     <Text paddingTop={3} size='3xl'>{movie.year}</Text>
                 </Box>
-                <Center>
-                    <Box saturate={2} shadow='2xl' p={3} width='100%' height='50vh'>
-                        <Grid gap={1} templateColumns={['repeat(2, auto)', 'repeat(3, auto)']}>
-                            {actorArr.map(item => <GridItem key={uuid()}><Actors actor={item} /></GridItem>)}
-                        </Grid>
-                    </Box>
-                </Center>
-            </Stack>
+                <Box p={3} width='100%'>
+                    <Grid gap={1} templateColumns='repeat(3, 1fr)'>
+                        {actorArr.map(item => <GridItem key={uuid()}><Actors actor={item} /></GridItem>)}
+                    </Grid>
+                </Box>
+                g            </Stack>
         </>
     )
 };
