@@ -6,7 +6,7 @@ import { Movie } from 'src/types/types';
 import { v4 as uuid } from 'uuid';
 import Win from '../Win/Win';
 import Actors from '../Actors/Actors';
-import { pop, selectMovie } from 'src/features/movies/movieSlice';
+import { pop, selectMovie, win } from 'src/features/movies/movieSlice';
 
 interface MovieProps {
     movie: Movie
@@ -34,8 +34,10 @@ const Guess: FC<MovieProps> = ({ movie }): JSX.Element => {
         event.preventDefault();
         if (!guess)
             return
-        if (fuzzysort.go(guess, [movie.title])[0]?.score >= -guess.length + 3)
+        if (fuzzysort.go(guess, [movie.title])[0]?.score >= -guess.length + 3) {
             setWinState(true)
+            dispatch(win())
+        }
         else {
             handleIncorrect()
         }
@@ -52,7 +54,7 @@ const Guess: FC<MovieProps> = ({ movie }): JSX.Element => {
                     <Text paddingTop={3} size='3xl'>{movie.year}</Text>
                 </Box>
                 <Box p={3} width='100%'>
-                    <Grid gap={3} templateColumns='repeat(3, 1fr)'>
+                    <Grid gap={1} templateColumns='repeat(3, 1fr)'>
                         {actorArr.map(item => <GridItem key={uuid()}><Actors actor={item} /></GridItem>)}
                     </Grid>
                 </Box>
