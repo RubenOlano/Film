@@ -31,7 +31,7 @@ export const movieSlice = createSlice({
         },
         pop: (state) => {
             state.guesses++
-            if (state.guesses > 7)
+            if (state.guesses > 6)
                 return
             const actor = state.actors.pop() as Actor
             state.currActors.push(actor)
@@ -39,6 +39,9 @@ export const movieSlice = createSlice({
         reset: (state) => {
             state.guesses = 0
             state.currActors = []
+        },
+        win: (state) => {
+            state.currActors = [...state.actors, ...state.currActors]
         }
     },
     extraReducers: (builder) => {
@@ -53,7 +56,7 @@ export const movieSlice = createSlice({
     }
 })
 
-export const { pop, reset } = movieSlice.actions
+export const { pop, reset, win } = movieSlice.actions
 
 export const selectMovie = (state: RootState) => state.movie
 

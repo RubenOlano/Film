@@ -1,4 +1,4 @@
-import { Input, Box, Grid, GridItem, Stack, Text } from '@chakra-ui/react';
+import { Input, Box, Grid, GridItem, Stack, Text, Center } from '@chakra-ui/react';
 import React, { FC, useState } from 'react';
 import { useAppDispatch, useAppSelector } from 'src/app/hooks';
 import fuzzysort from 'fuzzysort';
@@ -6,7 +6,7 @@ import { Movie } from 'src/types/types';
 import { v4 as uuid } from 'uuid';
 import Win from '../Win/Win';
 import Actors from '../Actors/Actors';
-import { pop, selectMovie } from 'src/features/movies/movieSlice';
+import { pop, selectMovie, win } from 'src/features/movies/movieSlice';
 
 interface MovieProps {
     movie: Movie
@@ -34,8 +34,10 @@ const Guess: FC<MovieProps> = ({ movie }): JSX.Element => {
         event.preventDefault();
         if (!guess)
             return
-        if (fuzzysort.go(guess, [movie.title])[0]?.score >= -guess.length + 3)
+        if (fuzzysort.go(guess, [movie.title])[0]?.score >= -guess.length + 3) {
             setWinState(true)
+            dispatch(win())
+        }
         else {
             handleIncorrect()
         }
@@ -44,18 +46,20 @@ const Guess: FC<MovieProps> = ({ movie }): JSX.Element => {
 
     return (
         <>
-            <Stack>
-                <Box width='100vw' p={6}>
+            <Stack direction={['column', 'row']}>
+                <Box width={['100vw', '50vw']} p={6}>
                     <form onSubmit={handleSubmit} >
                         {!winState ? <Input autoFocus onChange={handleChange} placeholder='Guess' value={guess} /> : <Win poster={movie.poster} setWinState={setWinState} />}
                     </form>
                     <Text paddingTop={3} size='3xl'>{movie.year}</Text>
                 </Box>
-                <Box p={3} width='100%'>
-                    <Grid gap={3} templateColumns='repeat(3, 1fr)'>
-                        {actorArr.map(item => <GridItem key={uuid()}><Actors actor={item} /></GridItem>)}
-                    </Grid>
-                </Box>
+                <Center>
+                    <Box saturate={2} shadow='2xl' p={3} width='100%' height='50vh'>
+                        <Grid gap={1} templateColumns={['repeat(2, auto)', 'repeat(3, auto)']}>
+                            {actorArr.map(item => <GridItem key={uuid()}><Actors actor={item} /></GridItem>)}
+                        </Grid>
+                    </Box>
+                </Center>
             </Stack>
         </>
     )
