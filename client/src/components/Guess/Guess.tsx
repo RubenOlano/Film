@@ -17,6 +17,7 @@ interface MovieProps {
 const Guess: FC<MovieProps> = ({ movie }): JSX.Element => {
     const [guess, setGuess] = useState<string>("");
     const [winState, setWinState] = useState<boolean>(false);
+    const [guesses, setGuesses] = useState<string[]>([])
     const actorArr = useAppSelector(selectMovie).currActors
     const dispatch = useAppDispatch()
 
@@ -37,9 +38,11 @@ const Guess: FC<MovieProps> = ({ movie }): JSX.Element => {
         if (fuzzysort.go(guess, [movie.title])[0]?.score >= -guess.length + 3) {
             setWinState(true)
             dispatch(win())
+            setGuesses([])
         }
         else {
             handleIncorrect()
+            setGuesses([...guesses, guess])
         }
         setGuess("")
     }
@@ -52,6 +55,7 @@ const Guess: FC<MovieProps> = ({ movie }): JSX.Element => {
                         {!winState ? <Input autoFocus onChange={handleChange} placeholder='Guess' value={guess} /> : <Win poster={movie.poster} setWinState={setWinState} />}
                     </form>
                     <Text paddingTop={3} size='3xl'>{movie.year}</Text>
+                    {guesses && guesses.map(item => <p key={uuid()}>{item}</p>)}
                 </Box>
                 <Center>
                     <Box shadow='2xl' p={3} width='100%' height='50vh'>
