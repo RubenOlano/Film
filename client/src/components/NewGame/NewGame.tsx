@@ -4,15 +4,18 @@ import { useAppDispatch } from 'src/app/hooks';
 import { reset, setMovie } from 'src/features/movies/movieSlice';
 
 interface GameProps {
-    setWinState?: React.Dispatch<React.SetStateAction<boolean>>
+    setWinState?: React.Dispatch<React.SetStateAction<boolean>>,
+    setGuesses?: React.Dispatch<React.SetStateAction<string[]>>
 }
 
-const NewGame: FC<GameProps> = ({ setWinState }) => {
+const NewGame: FC<GameProps> = ({ setWinState, setGuesses }) => {
     const dispatch = useAppDispatch()
 
     const handleClick = () => {
-        if (setWinState)
+        if (setWinState && setGuesses) {
             setWinState(false)
+            setGuesses([])
+        }
         dispatch(setMovie())
         dispatch(reset())
     }
