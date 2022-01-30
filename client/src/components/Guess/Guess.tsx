@@ -49,7 +49,7 @@ const Guess: FC<MovieProps> = ({ movie }): JSX.Element => {
 
     return (
         <>
-            <Stack direction={['column', 'row']}>
+            <Stack direction={['column', 'row']} height={['175vh', 'auto']}>
                 <Box width={['100vw', '50vw']} p={6}>
                     <form onSubmit={handleSubmit} >
                         {!winState ? <Input autoFocus onChange={handleChange} placeholder='Guess' value={guess} /> : <Win title={movie.title} poster={movie.poster} setGuesses={setGuesses} setWinState={setWinState} />}
@@ -69,11 +69,13 @@ const Guess: FC<MovieProps> = ({ movie }): JSX.Element => {
                     </Box>
                 </Center>
             </Stack>
-            <Center>
-                <Stack direction='row'>
-                    {winState && guesses.map(item => <GuessBadge key={uuid()} guess={item} />)}
-                </Stack>
-            </Center>
+            <Box>
+                <Center>
+                    <Grid direction={['column', 'row']} templateColumns={['repeat(1, auto)', 'repeat(5,auto)']}>
+                        {winState && guesses.map(item => <GridItem key={uuid()}><GuessBadge guess={item} /></GridItem>)}
+                    </Grid>
+                </Center>
+            </Box>
         </>
     )
 };
