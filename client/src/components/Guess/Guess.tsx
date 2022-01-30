@@ -72,7 +72,7 @@ const Guess: FC<MovieProps> = ({ movie }): JSX.Element => {
             <Box>
                 <Center>
                     <Grid direction={['column', 'row']} templateColumns={['repeat(1, auto)', 'repeat(5,auto)']}>
-                        {winState && guesses.map(item => <GridItem key={uuid()}><GuessBadge guess={item} /></GridItem>)}
+                        {winState && <> {guesses.map(item => <GridItem key={uuid()}><GuessBadge guess={item} /></GridItem>)} <GridItem><GuessBadge color='green' guess={movie.title} /></GridItem></>}
                     </Grid>
                 </Center>
             </Box>

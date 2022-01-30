@@ -2,12 +2,13 @@ import { Badge } from '@chakra-ui/react';
 import React, { FC } from 'react';
 
 interface BadgeProps {
-    guess: string
+    guess: string,
+    color?: string
 }
 
-const GuessBadge: FC<BadgeProps> = ({ guess }) => {
+const GuessBadge: FC<BadgeProps> = ({ guess, color }) => {
     return (
-        <Badge colorScheme='red'>
+        <Badge colorScheme={color || 'red'}>
             {guess}
         </Badge>
     );
