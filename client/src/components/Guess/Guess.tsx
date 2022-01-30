@@ -1,13 +1,15 @@
-import { Input, Box, Grid, GridItem, Stack, Text, Center } from '@chakra-ui/react';
+import { Input, Box, Grid, GridItem, Stack, Text, Center, useClipboard } from '@chakra-ui/react';
 import React, { FC, useState } from 'react';
 import { useAppDispatch, useAppSelector } from 'src/app/hooks';
 import fuzzysort from 'fuzzysort';
 import { Movie } from 'src/types/types';
+import { CopyIcon } from '@chakra-ui/icons';
 import { v4 as uuid } from 'uuid';
 import Win from '../Win/Win';
 import Actors from '../Actors/Actors';
 import { pop, selectMovie, win } from 'src/features/movies/movieSlice';
 import GuessBadge from '../GuessBadge/GuessBadge';
+
 
 interface MovieProps {
     movie: Movie
@@ -21,6 +23,7 @@ const Guess: FC<MovieProps> = ({ movie }): JSX.Element => {
     const [guesses, setGuesses] = useState<string[]>([])
     const actorArr = useAppSelector(selectMovie).currActors
     const dispatch = useAppDispatch()
+    const { onCopy } = useClipboard(movie.year + ": " + (guesses.map(item => '🟥').join(' ') + ' 🟩'))
 
     const handleIncorrect = () => {
         if (movie?.guesses && movie.guesses > 6)
@@ -52,7 +55,9 @@ const Guess: FC<MovieProps> = ({ movie }): JSX.Element => {
             <Stack direction={['column', 'row']} height={['175vh', 'auto']}>
                 <Box width={['100vw', '50vw']} p={6}>
                     <form onSubmit={handleSubmit} >
-                        {!winState ? <Input autoFocus onChange={handleChange} placeholder='Guess' value={guess} /> : <Win title={movie.title} poster={movie.poster} setGuesses={setGuesses} setWinState={setWinState} />}
+                        {!winState ? <Input autoFocus onChange={handleChange} placeholder='Guess' value={guess} /> :
+                            <><Win title={movie.title} poster={movie.poster} setGuesses={setGuesses} setWinState={setWinState} />
+                                <CopyIcon onClick={onCopy} /></>}
                     </form>
                     <Text paddingTop={3} size='3xl'>{movie.year}</Text>
                     {!winState && guesses && (
