@@ -7,6 +7,7 @@ import { v4 as uuid } from 'uuid';
 import Win from '../Win/Win';
 import Actors from '../Actors/Actors';
 import { pop, selectMovie, win } from 'src/features/movies/movieSlice';
+import GuessBadge from '../GuessBadge/GuessBadge';
 
 interface MovieProps {
     movie: Movie
@@ -38,7 +39,6 @@ const Guess: FC<MovieProps> = ({ movie }): JSX.Element => {
         if (fuzzysort.go(guess, [movie.title])[0]?.score >= -guess.length + 3) {
             setWinState(true)
             dispatch(win())
-            setGuesses([])
         }
         else {
             handleIncorrect()
@@ -52,10 +52,14 @@ const Guess: FC<MovieProps> = ({ movie }): JSX.Element => {
             <Stack>
                 <Box width='100vw' p={6}>
                     <form onSubmit={handleSubmit} >
-                        {!winState ? <Input autoFocus onChange={handleChange} placeholder='Guess' value={guess} /> : <Win poster={movie.poster} setWinState={setWinState} />}
+                        {!winState ? <Input autoFocus onChange={handleChange} placeholder='Guess' value={guess} /> : <Win title={movie.title} poster={movie.poster} setGuesses={setGuesses} setWinState={setWinState} />}
                     </form>
                     <Text paddingTop={3} size='3xl'>{movie.year}</Text>
-                    {guesses && guesses.map(item => <p key={uuid()}>{item}</p>)}
+                    {!winState && guesses && (
+                        <Stack direction='row'>
+                            {guesses.map(item => <GuessBadge key={uuid()} guess={item} />)}
+                        </Stack>
+                    )}
                 </Box>
                 <Center>
                     <Box shadow='2xl' p={3} width='100%' height='50vh'>
@@ -65,6 +69,11 @@ const Guess: FC<MovieProps> = ({ movie }): JSX.Element => {
                     </Box>
                 </Center>
             </Stack>
+            <Center>
+                <Stack direction='row'>
+                    {winState && guesses.map(item => <GuessBadge key={uuid()} guess={item} />)}
+                </Stack>
+            </Center>
         </>
     )
 };
