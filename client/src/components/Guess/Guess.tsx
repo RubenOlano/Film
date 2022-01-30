@@ -3,7 +3,7 @@ import React, { FC, useState } from 'react';
 import { useAppDispatch, useAppSelector } from 'src/app/hooks';
 import fuzzysort from 'fuzzysort';
 import { Movie } from 'src/types/types';
-import { CopyIcon } from '@chakra-ui/icons';
+import { CheckIcon, CopyIcon } from '@chakra-ui/icons';
 import { v4 as uuid } from 'uuid';
 import Win from '../Win/Win';
 import Actors from '../Actors/Actors';
@@ -23,7 +23,7 @@ const Guess: FC<MovieProps> = ({ movie }): JSX.Element => {
     const [guesses, setGuesses] = useState<string[]>([])
     const actorArr = useAppSelector(selectMovie).currActors
     const dispatch = useAppDispatch()
-    const { onCopy } = useClipboard(movie.year + ": " + (guesses.map(item => '🟥').join(' ') + ' 🟩'))
+    const { onCopy, hasCopied } = useClipboard(movie.year + ": " + (guesses.map(_item => '🟥').join(' ') + ' 🟩'))
 
     const handleIncorrect = () => {
         if (movie?.guesses && movie.guesses > 6)
@@ -57,7 +57,7 @@ const Guess: FC<MovieProps> = ({ movie }): JSX.Element => {
                     <form onSubmit={handleSubmit} >
                         {!winState ? <Input autoFocus onChange={handleChange} placeholder='Guess' value={guess} /> :
                             <><Win title={movie.title} poster={movie.poster} setGuesses={setGuesses} setWinState={setWinState} />
-                                <CopyIcon onClick={onCopy} /></>}
+                                {!hasCopied ? <CopyIcon onClick={onCopy} /> : <CheckIcon color='green' />}</>}
                     </form>
                     <Text paddingTop={3} size='3xl'>{movie.year}</Text>
                     {!winState && guesses && (
