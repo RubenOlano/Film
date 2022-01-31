@@ -56,8 +56,11 @@ const Guess: FC<MovieProps> = ({ movie }): JSX.Element => {
                 <Box width={['100vw', '50vw']} p={6}>
                     <form onSubmit={handleSubmit} >
                         {!winState ? <Input autoFocus onChange={handleChange} placeholder='Guess' value={guess} /> :
-                            <><Win title={movie.title} poster={movie.poster} setGuesses={setGuesses} setWinState={setWinState} />
-                                {!hasCopied ? <CopyIcon onClick={onCopy} /> : <CheckIcon color='green' />}</>}
+                            <>
+                                <Win title={movie.title} poster={movie.poster} setGuesses={setGuesses} setWinState={setWinState} />
+                                {!hasCopied ? <Box paddingTop={3}><CopyIcon onClick={onCopy} h={8} w={8} color='green' /></Box> : <Box paddingTop={3}><CheckIcon h={8} w={8} color='green' /></Box>}
+                            </>
+                        }
                     </form>
                     <Text paddingTop={3} size='3xl'>{movie.year}</Text>
                     {!winState && guesses && (
