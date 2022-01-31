@@ -16,7 +16,7 @@ const Win: FC<WinProps> = ({ setWinState, poster, setGuesses, title }) => {
                 <Box >
                     <Stack>
                         <Newgame setGuesses={setGuesses} setWinState={setWinState} />
-                        <Badge size='sm' fontSize='3xl' colorScheme='green'>{title}</Badge>
+                        <Badge fontSize='auto' size='sm' colorScheme='green'  >{title}</Badge>
                         <Image padding='0' fit='contain' boxSize='400px' src={poster} alt='poster' />
                     </Stack>
                 </Box>

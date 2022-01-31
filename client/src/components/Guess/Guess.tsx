@@ -62,7 +62,7 @@ const Guess: FC<MovieProps> = ({ movie }): JSX.Element => {
                             </>
                         }
                     </form>
-                    <Text paddingTop={3} size='3xl'>{movie.year}</Text>
+                    <Text paddingTop={3} size='3xl'>{movie.year || 'loading...'}</Text>
                     {!winState && guesses && (
                         <Grid direction={['row', 'column']} templateColumns={['repeat(2, auto)', 'repeat(auto, auto)']}>
                             {guesses.map(item => <GridItem key={uuid()}><GuessBadge guess={item} /></GridItem>)}
@@ -77,13 +77,13 @@ const Guess: FC<MovieProps> = ({ movie }): JSX.Element => {
                     </Box>
                 </Center>
             </Stack>
-            <Box>
-                <Center>
-                    <Grid direction={['column', 'row']} templateColumns={['repeat(1, auto)', 'repeat(5,auto)']}>
+            <Center>
+                <Box paddingTop={['auto', 0]}>
+                    <Grid gap={2} direction={['column', 'row']} templateColumns={['repeat(1, auto)', 'repeat(5,auto)']}>
                         {winState && <> {guesses.map(item => <GridItem key={uuid()}><GuessBadge guess={item} /></GridItem>)} <GridItem><GuessBadge color='green' guess={movie.title} /></GridItem></>}
                     </Grid>
-                </Center>
-            </Box>
+                </Box>
+            </Center>
         </>
     )
 };

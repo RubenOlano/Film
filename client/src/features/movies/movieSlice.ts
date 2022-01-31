@@ -38,6 +38,7 @@ export const movieSlice = createSlice({
             state.currActors.push(actor)
         },
         reset: (state) => {
+            state.year = 0
             state.guesses = 0
             state.currActors = []
         },
