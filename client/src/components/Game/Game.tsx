@@ -1,7 +1,7 @@
 import React from 'react';
 import { useAppSelector } from 'src/app/hooks';
 import { selectMovie } from 'src/features/movies/movieSlice';
-import Guess from '../Guess/Guess';
+import Guess from '../Body/Body';
 import NewGame from '../NewGame/NewGame';
 
 const Game = () => {
