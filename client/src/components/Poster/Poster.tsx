@@ -16,9 +16,10 @@ interface PosterProps {
     setGuesses: React.Dispatch<React.SetStateAction<string[]>>
     guesses: string[]
     setWinState: React.Dispatch<React.SetStateAction<boolean>>
+    setGuess: React.Dispatch<React.SetStateAction<string>>
 }
 
-const Poster: FC<PosterProps> = ({ handleSubmit, handleChange, winState, movie, guess, guesses, setGuesses, setWinState }) => {
+const Poster: FC<PosterProps> = ({ handleSubmit, handleChange, winState, movie, guess, guesses, setGuesses, setWinState, setGuess }) => {
     const { onCopy, hasCopied } = useClipboard(movie.year + ": " + (guesses.map(_item => '🟥').join(' ') + ' 🟩'))
 
     return (
@@ -34,7 +35,7 @@ const Poster: FC<PosterProps> = ({ handleSubmit, handleChange, winState, movie, 
             <Text paddingTop={3} size='3xl'>{movie.year || 'loading...'}</Text>
             {!winState && guesses && (
                 <Grid direction={['row', 'column']} templateColumns={['repeat(2, auto)', 'repeat(auto, auto)']}>
-                    {guesses.map(item => <GridItem key={uuid()}><GuessBadge guess={item} /></GridItem>)}
+                    {guesses.map(item => <GridItem key={uuid()}><GuessBadge setGuess={setGuess} guess={item} /></GridItem>)}
                 </Grid>
             )}
         </Box>

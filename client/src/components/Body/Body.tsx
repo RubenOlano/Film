@@ -50,7 +50,7 @@ const Guess: FC<MovieProps> = ({ movie }): JSX.Element => {
     return (
         <>
             <Stack direction={['column', 'row']} height={['175vh', 'auto']}>
-                <Poster setWinState={setWinState} guesses={guesses} movie={movie} handleSubmit={handleSubmit} handleChange={handleChange} winState={winState} guess={guess} setGuesses={setGuesses} />
+                <Poster setGuess={setGuess} setWinState={setWinState} guesses={guesses} movie={movie} handleSubmit={handleSubmit} handleChange={handleChange} winState={winState} guess={guess} setGuesses={setGuesses} />
                 <ActorGrid actorArr={actorArr} />
             </Stack>
             <Guesses guesses={guesses} movie={movie} winState={winState} />
