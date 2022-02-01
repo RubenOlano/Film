@@ -52,7 +52,7 @@ export const movieSlice = createSlice({
         }).addCase(setMovie.fulfilled, (state, action) => {
             state.actors = action.payload.actors
             state.poster = action.payload.poster
-            state.title = action.payload.title
+            state.title = action.payload.title.replace('-', ' ').replace(':', '')
             state.year = action.payload.year
         })
     }
