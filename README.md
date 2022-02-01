@@ -14,7 +14,7 @@ To start the client view, you must run `yarn start` to run in a development buil
 To start the server you must provide an api key from imdb-api to use any of the endpoints, you must also provide a link to the mongodb database, after that has been done, you can run `yarn watch` to compile the existing typescript into javascript then `yarn start` to run that javascript
 
 ## Endpoints
-The backend has two endpoints: /movies and /movies/add/<imdb-id> 
+The backend has two endpoints: /movies and /movies/add/\<imdb-id> 
 
 ### /movies
   
@@ -22,6 +22,6 @@ This endpoint grabs a random movie from the database providing the title, poster
   
 ---
   
-### /movies/add/<imbd-id>
+### /movies/add/\<imbd-id>
   
 This endpoint adds the specified movie to the database using the specified id and returns the document that has been added
