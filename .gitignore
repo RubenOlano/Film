@@ -130,6 +130,4 @@ dist
 .pnp.*
 
 #frebase files
-.firebase/
-client/.firebase/hosting.YnVpbGQ.cache
-client/.firebase/hosting.YnVpbGQ.cache
+client/.firebase/
