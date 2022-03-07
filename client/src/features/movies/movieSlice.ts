@@ -4,14 +4,7 @@ import { Actor, Movie } from "../../types/types";
 import { fetchMovie } from "./movieAPI";
 import { AxiosResponse } from "axios";
 
-const initialState: Movie = {
-  title: "",
-  actors: [],
-  poster: "",
-  guesses: 0,
-  currActors: [],
-  year: 0,
-};
+const initialState = {} as Movie;
 
 export const setMovie = createAsyncThunk("movie/setMovie", async () => {
   const { data }: AxiosResponse["data"] = await fetchMovie();
@@ -28,8 +21,8 @@ export const movieSlice = createSlice({
     pop: (state) => {
       state.guesses++;
       if (state.guesses > 6) return;
-      const actor = state.actors.pop();
-      state.currActors.push(actor as Actor);
+      const actor = state.actors.pop() as Actor;
+      state.currActors = [...state.currActors, actor];
     },
     reset: (state) => {
       state.year = 0;
